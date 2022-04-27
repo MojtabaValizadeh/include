@@ -1,1 +1,1 @@
-This is an updated version of WarpCore library.
+Helper library + an updated version of WarpCore library.
