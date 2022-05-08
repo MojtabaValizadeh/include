@@ -242,7 +242,7 @@ public:
 
                 if(group.any(success))
                 {
-                    return -1 * i;
+                    return -i;
                 }
 
                 empty_mask ^= 1UL << leader;
