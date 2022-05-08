@@ -195,12 +195,12 @@ public:
         const cg::thread_block_tile<cg_size()>& group,
         index_type probing_length = defaults::probing_length()) noexcept
     {
-        if(!is_initialized_) return std::INT_MIN;
+        if(!is_initialized_) return INT_MIN;
 
         if(!is_valid_key(key_in))
         {
             status_->atomic_join(Status::invalid_key());
-            return std::INT_MIN;
+            return INT_MIN;
         }
 
         ProbingScheme iter(capacity_, probing_length, group);
