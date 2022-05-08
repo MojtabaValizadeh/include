@@ -195,12 +195,12 @@ public:
         const cg::thread_block_tile<cg_size()>& group,
         index_type probing_length = defaults::probing_length()) noexcept
     {
-        if(!is_initialized_) return INT_MIN;
+        if(!is_initialized_) return 0;
 
         if(!is_valid_key(key_in))
         {
             status_->atomic_join(Status::invalid_key());
-            return INT_MIN;
+            return 0;
         }
 
         ProbingScheme iter(capacity_, probing_length, group);
@@ -214,7 +214,7 @@ public:
             if(hit_mask)
             {
                 status_->atomic_join(Status::duplicate_key());
-                return i;
+                return i + 1;
             }
 
             // !not_is_valid_key?
@@ -237,12 +237,12 @@ public:
                 if(group.any(duplicate))
                 {
                     status_->atomic_join(Status::duplicate_key());
-                    return i;
+                    return i + 1;
                 }
 
                 if(group.any(success))
                 {
-                    return -i;
+                    return -i - 1;
                 }
 
                 empty_mask ^= 1UL << leader;
